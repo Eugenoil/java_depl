@@ -3,6 +3,7 @@ package by.eugenol.dao;
 import by.eugenol.dao.test_session_factory.TestSessionFactory;
 import by.eugenol.interfaces.RolesDao;
 import by.eugenol.pojos.Roles;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
 
@@ -15,10 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RoleDaoImplTest {
 
-   /* private final SessionFactory sessionFactory = TestSessionFactory.getSessionFactory();
+    private final SessionFactory sessionFactory = TestSessionFactory.getSessionFactory();
 
     @Test
     void findById() throws SQLException {
+        //Given
         RolesDao<Roles, Integer> rolesDao = new RolesDaoImpl(sessionFactory);
         Roles expectedRole = new Roles();
         expectedRole.setName("Admin");
@@ -28,7 +30,7 @@ class RoleDaoImplTest {
         Roles actualRole = rolesDao.getRolesById(expectedRole.getId());
 
         //Then
-        assertEquals(actualRole, expectedRole);
+        assertEquals(expectedRole, actualRole);
 
         rolesDao.deleteRoleById(expectedRole.getId());
     }
@@ -41,7 +43,6 @@ class RoleDaoImplTest {
         RolesDao roleDAO = new RolesDaoImpl(sessionFactory);
         role_admin.setName("Admin");
         role_manager.setName("Manager");
-
 
         //When
         List<Roles> rolesList = new ArrayList<>();
@@ -70,7 +71,9 @@ class RoleDaoImplTest {
         rolesDao.update(role_admin);
 
         //Then
-        assertEquals("Admin", rolesDao.getRolesById(Math.toIntExact(role_admin.getId())).getName());
+        Session session = sessionFactory.openSession();
+        assertEquals(role_admin, session.get(Roles.class, role_admin.getId()));
+        session.close();
         rolesDao.deleteRoleById(role_admin.getId());
     }
 
@@ -86,9 +89,7 @@ class RoleDaoImplTest {
         boolean isDeleted = rolesDao.deleteRoleById(role_admin.getId());
 
         //Then
-        List<Roles> actualResult = rolesDao.findAll();
         assertTrue(isDeleted);
-        assertTrue(actualResult.isEmpty());
         rolesDao.deleteRoleById(role_admin.getId());
     }
 
@@ -116,5 +117,4 @@ class RoleDaoImplTest {
         roleDAO.deleteRoleById(role_admin.getId());
         roleDAO.deleteRoleById(role_manager.getId());
     }
-*/
 }

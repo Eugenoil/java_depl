@@ -37,7 +37,7 @@ public class RolesDaoImpl implements RolesDao<Roles, Integer> {
     public Roles getRolesById(Integer id) {
         Session session = sessionFactory.openSession();
         Transaction tr = session.beginTransaction();
-        Roles roles = session.load(Roles.class, id);
+        Roles roles = session.get(Roles.class, id);
         tr.commit();
         session.close();
         return roles;
@@ -48,8 +48,7 @@ public class RolesDaoImpl implements RolesDao<Roles, Integer> {
      */
     @Override
     public List<Roles> findAll() {
-        List<Roles> roles = (List<Roles>) SessionFactoryHolder
-                .getSessionFactory()
+        List<Roles> roles = (List<Roles>) sessionFactory
                 .openSession()
                 .createQuery("From Roles").list();
         return roles;
