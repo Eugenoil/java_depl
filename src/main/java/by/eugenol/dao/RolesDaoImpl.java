@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.sql.*;
 import java.util.*;
 
-public class RolesDaoImpl implements RolesDao <Roles, Integer> {
+public class RolesDaoImpl implements RolesDao<Roles, Integer> {
 
     private final SessionFactory sessionFactory;
 
@@ -24,8 +24,11 @@ public class RolesDaoImpl implements RolesDao <Roles, Integer> {
     }
 
 
+    /**
+     * Get Role by id with method get
+     */
     @Override
-    public Roles getRolesById(Integer id) throws SQLException {//Get Role by id with method get
+    public Roles getRolesById(Integer id) {
         Session session = sessionFactory.openSession();
         Transaction tr = session.beginTransaction();
         Roles roles = session.load(Roles.class, id);
@@ -34,8 +37,11 @@ public class RolesDaoImpl implements RolesDao <Roles, Integer> {
         return roles;
     }
 
+    /**
+     * Get List of Roles
+     */
     @Override
-    public List<Roles> findAll() throws SQLException { //Get List of Roles
+    public List<Roles> findAll() {
         List<Roles> roles = (List<Roles>) SessionFactoryHolder
                 .getSessionFactory()
                 .openSession()
@@ -43,8 +49,11 @@ public class RolesDaoImpl implements RolesDao <Roles, Integer> {
         return roles;
     }
 
+    /**
+     * Save role and get id of saved role
+     */
     @Override
-    public Serializable save(Roles roles) throws SQLException {//Save role and get id of saved role
+    public Serializable save(Roles roles) {
         Session session = sessionFactory.openSession();
         Serializable id = null;
         Transaction tr = null;
@@ -62,8 +71,13 @@ public class RolesDaoImpl implements RolesDao <Roles, Integer> {
         return id;
     }
 
+    /**
+     * Updates an existing role
+     *
+     * @throws SQLException
+     */
     @Override
-    public void update(Roles roles) throws SQLException { //Update existed role
+    public void update(Roles roles) throws SQLException {
         Session session = sessionFactory.openSession();
         Serializable id = null;
         Transaction tr = null;
@@ -80,8 +94,11 @@ public class RolesDaoImpl implements RolesDao <Roles, Integer> {
         }
     }
 
+    /**
+     * Delete role with id
+     */
     @Override
-    public boolean deleteRoleById(Serializable id) throws SQLException { //Delete role with id
+    public boolean deleteRoleById(Serializable id) {
         Session session = sessionFactory.openSession();
         Roles roles = session.get(Roles.class, id);
         Transaction tr = null;
