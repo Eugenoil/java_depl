@@ -7,6 +7,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+
+/**
+ * Entity Roles, has an id, name, many-to-many relationship.
+ * Overridden equals method to make Roles unique.
+ */
 @Entity
 @Getter
 @Setter

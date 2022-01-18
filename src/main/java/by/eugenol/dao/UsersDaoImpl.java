@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.sql.*;
 import java.util.*;
 
-public class UsersDaoImpl implements UsersDao<Users, Integer>  {
+public class UsersDaoImpl implements UsersDao<Users, Integer> {
 
     private final SessionFactory sessionFactory;
 
@@ -24,24 +24,33 @@ public class UsersDaoImpl implements UsersDao<Users, Integer>  {
         this.sessionFactory = sessionFactory;
     }
 
+    /**
+     * id Get User by id with method get
+     */
     @Override
-    public Users getUsersById(Integer id) throws SQLException { //Get User by id with method get
+    public Users getUsersById(Integer id) {
         Session session = sessionFactory.openSession();
         Users users = session.get(Users.class, id);
         session.close();
         return users;
     }
 
+    /**
+     * Get list of all Users
+     */
     @Override
-    public List<Users> findAll() throws SQLException { //Get list of all Users
+    public List<Users> findAll() { //
         List<Users> users = (List<Users>) sessionFactory
-                        .openSession()
-                        .createQuery("From Users").list();
+                .openSession()
+                .createQuery("From Users").list();
         return users;
     }
 
+    /**
+     * Save user and get id of saved user
+     */
     @Override
-    public Serializable save(Users user) throws SQLException { //Save user and get id of saved user
+    public Serializable save(Users user) {
         Session session = sessionFactory.openSession();
         Serializable id = null;
         Transaction tr = null;
@@ -59,8 +68,13 @@ public class UsersDaoImpl implements UsersDao<Users, Integer>  {
         return id;
     }
 
+    /**
+     * Update existed user in database
+     *
+     * @throws SQLException
+     */
     @Override
-    public void update(Users users) throws SQLException { //Update existed user in database
+    public void update(Users users) throws SQLException {
         Session session = sessionFactory.openSession();
         Transaction tr = null;
         try {
@@ -76,8 +90,11 @@ public class UsersDaoImpl implements UsersDao<Users, Integer>  {
         }
     }
 
+    /**
+     * Delete user from database with id
+     */
     @Override
-    public boolean deleteUserById(Serializable id) throws SQLException {//Delete user from database with id
+    public boolean deleteUserById(Serializable id) {
         Session session = sessionFactory.openSession();
         Users roles = session.get(Users.class, id);
         Transaction tr = null;
@@ -95,8 +112,11 @@ public class UsersDaoImpl implements UsersDao<Users, Integer>  {
         return roles != null;
     }
 
+    /**
+     * Save user with rolesSet set
+     */
     @Override
-    public Serializable saveUserWithRoles(Set<Roles> rolesSet, Users user) throws SQLException { //Save user with Set of roles
+    public Serializable saveUserWithRoles(Set<Roles> rolesSet, Users user) {
         Session session = SessionFactoryHolder.getSessionFactory().openSession();
         Serializable id = null;
         Transaction tr = null;
