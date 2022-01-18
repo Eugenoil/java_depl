@@ -55,7 +55,7 @@
                     <th>User Role for Add: </th>
                     <td>
                         <input type="text" name="roleadd" size="45"
-                               value="Role for adding"
+                               placeholder="Please enter role to Add"
                         />
                     </td>
                 </tr>
@@ -64,7 +64,7 @@
                     <th>User Role for Delete: </th>
                     <td>
                         <input type="text" name="roledelete" size="45"
-                               value="Role for delete"
+                               placeholder="Please enter role to Delete"
                         />
                     </td>
                 </tr>
