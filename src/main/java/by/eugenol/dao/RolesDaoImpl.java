@@ -15,11 +15,17 @@ public class RolesDaoImpl implements RolesDao<Roles, Integer> {
 
     private final SessionFactory sessionFactory;
 
+    /**
+     * Default SessionFactory
+     */
     public RolesDaoImpl() {
-        this.sessionFactory = SessionFactoryHolder.getSessionFactory(); //Default SessionFactory
+        this.sessionFactory = SessionFactoryHolder.getSessionFactory();
     }
 
-    public RolesDaoImpl(SessionFactory sessionFactory) { //Constructor for custom SessionFactory
+    /**
+     * Constructor for custom SessionFactory
+     */
+    public RolesDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
