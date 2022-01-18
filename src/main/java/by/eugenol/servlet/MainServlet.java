@@ -90,7 +90,7 @@ public class MainServlet extends HttpServlet {
             throws SQLException, ServletException, IOException {
         Integer id = Integer.parseInt(request.getParameter("id"));
         Users existingUser = userDao.getUsersById(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("edit-user-form.jsp");
         request.setAttribute("user", existingUser);
         dispatcher.forward(request, response);
 
@@ -103,7 +103,7 @@ public class MainServlet extends HttpServlet {
     private void insertUser(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         String login = request.getParameter("login");
-        String role = request.getParameter("role");
+        String role = request.getParameter("roleadd");
         Roles roles = new Roles();
         roles.setName(role);
         Set<Roles> rolesSet = new HashSet<>();
@@ -115,13 +115,23 @@ public class MainServlet extends HttpServlet {
 
 
     /**
-     * Get id and login from JSP and update user in database
+     * Get id, and roles from JSP and update user in database.
+     * Method received roles for delete and for add.
      */
     private void updateUser(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        String login = request.getParameter("login");
-        Users user = new Users(login);
+        Users user = userDao.getUsersById(id);
+        String roleToAdd = request.getParameter("roleadd");
+        String roleToDelete = request.getParameter("roledelete");
+        Roles rolesToAdd = new Roles();
+        Roles rolesToDelete = new Roles();
+        rolesToAdd.setName(roleToAdd);
+        rolesToDelete.setName(roleToDelete);
+        Set<Roles> existingRoles = user.getRoles();
+        existingRoles.add(rolesToAdd);
+        existingRoles.remove(rolesToDelete);
+        user.setRoles(existingRoles);
         userDao.update(user);
         response.sendRedirect("list");
     }

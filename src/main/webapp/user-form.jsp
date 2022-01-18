@@ -26,7 +26,7 @@
             <caption>
             	<h2>
             		<c:if test="${user != null}">
-            			Edit User
+            			Edit Users
             		</c:if>
             		<c:if test="${user == null}">
             			Add New User
@@ -45,14 +45,15 @@
                 </td>
             </tr>
             <tr>
-                <th>User Role: </th>
+                <th>User Role for Add: </th>
                 <td>
-                	<input type="text" name="role" size="45"
+                	<input type="text" name="roleadd" size="45"
                 			value="<c:out value='${user.roles}' />"
                 	/>
                 </td>
             </tr>
             <tr>
+			<tr>
             	<td colspan="2" align="center">
             		<input type="submit" value="Save" />
             	</td>

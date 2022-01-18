@@ -24,6 +24,7 @@ class UsersDaoImplTest{
 
     @Test
     void findById() throws SQLException {
+        //Given
         Set<Roles> roles = new HashSet<>();
         UsersDao<Users, Integer> usersDao = new UsersDaoImpl(sessionFactory);
         Roles role_admin = new Roles();
@@ -32,7 +33,6 @@ class UsersDaoImplTest{
         role_manager.setName("manager");
         roles.add(role_admin);
         roles.add(role_manager);
-        //Transaction tr = session.beginTransaction();
         Users expectedUser = new Users();;
         expectedUser.setLogin("Tom");
         expectedUser.setRoles(roles);
@@ -109,6 +109,7 @@ class UsersDaoImplTest{
 
     @Test
     void deleteUserById() throws SQLException {
+        //Given
         Set<Roles> roles = new HashSet<>();
         UsersDao<Users, Integer> usersDao = new UsersDaoImpl(sessionFactory);
         Roles role_admin = new Roles();
@@ -127,12 +128,12 @@ class UsersDaoImplTest{
         boolean isDeleted = usersDao.deleteUserById(expectedUser.getId());
 
         //Then
-
         assertTrue(isDeleted);
     }
 
     @Test
     void findAll() throws SQLException {
+        //Given
         Set<Roles> roles = new HashSet<>();
         UsersDao<Users, Integer> usersDao = new UsersDaoImpl(sessionFactory);
         Roles role_admin = new Roles();
