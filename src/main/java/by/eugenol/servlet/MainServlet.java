@@ -124,7 +124,7 @@ public class MainServlet extends HttpServlet {
         Users user = userDao.getUsersById(id);
         String roleToAdd = request.getParameter("roleadd");
         String roleToDelete = request.getParameter("roledelete");
-        Roles rolesToAdd = new Roles();
+        Roles rolesToAdd = new Roles(); fljfjhv,.j
         Roles rolesToDelete = new Roles();
         rolesToAdd.setName(roleToAdd);
         rolesToDelete.setName(roleToDelete);
